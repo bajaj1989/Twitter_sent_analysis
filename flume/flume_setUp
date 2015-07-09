@@ -1,0 +1,11 @@
+http://flume.apache.org/FlumeUserGuide.html
+
+./flume-ng  agent -n a1  -c conf -f ../conf/kelly.properties
+
+Version:
+tar -xzvf apache-flume-1.3.1-bin.tar.gz
+
+
+bin/flume-ng agent --conf ./conf/ -f conf/twitter_apple.properties -Dflume.root.logger=DEBUG,console -n TwitterAgent
+
+
