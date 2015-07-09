@@ -1,0 +1,1 @@
+create table apple as select text from tweets_apple;

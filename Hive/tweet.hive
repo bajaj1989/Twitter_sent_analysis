@@ -1,0 +1,6 @@
+create table tweet (user STRING, time STRING, text STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' ;
+
+insert overwrite table tweet select user.name, created_at, text from tweets_apple
+as select user.name, created_at, text from tweets_apple ;
+
+add jar /home/manish/Work/apache-hive-0.13.1-bin/lib/hive-serdes-1.0-SNAPSHOT.jar;
