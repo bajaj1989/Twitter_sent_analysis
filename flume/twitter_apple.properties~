@@ -4,10 +4,10 @@ TwitterAgent.sinks = HDFS
  
 TwitterAgent.sources.Twitter.type = com.cloudera.flume.source.TwitterSource
 TwitterAgent.sources.Twitter.channels = MemChannel
-TwitterAgent.sources.Twitter.consumerKey = fMgmr9SQ2jlnFLxBxalLbWuUO
-TwitterAgent.sources.Twitter.consumerSecret = yEvF50ONl4TYx7nlm85JCJuRh1Vw8jHct7kMOSOwOLOlIdgLzS
-TwitterAgent.sources.Twitter.accessToken = 175787135-pQRRNkKNRaAGiZbFidyMJG1ozcXRyvXDETM817U1
-TwitterAgent.sources.Twitter.accessTokenSecret = RhYTY70vimmPIIR701iy3Mx4Guv6QrbVXrC9HA2KrCkqf
+TwitterAgent.sources.Twitter.consumerKey = ************************************
+TwitterAgent.sources.Twitter.consumerSecret = ***************************************
+TwitterAgent.sources.Twitter.accessToken = ********************************************************
+TwitterAgent.sources.Twitter.accessTokenSecret = *******************************************************
 TwitterAgent.sources.Twitter.i1.type = timestamp
 TwitterAgent.sources.Twitter.keywords = Apple,iphone,ipod,APPL,macbook
  
