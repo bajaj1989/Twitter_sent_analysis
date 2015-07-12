@@ -1,10 +1,14 @@
 package com.manish;
 
+import java.net.URI;
+
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.filecache.DistributedCache;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
+//import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -26,7 +30,13 @@ public class MapJob implements Tool{
 
 	@Override
 	public int run(String[] args) throws Exception {
-		Job twitterJob = new Job(getConf());
+		
+		//adding files to distributed cache
+		//Configuration job = new Configuration();
+		 DistributedCache.addCacheFile(new URI("/cache/positive.txt"), conf);
+		 DistributedCache.addCacheFile(new URI("/cache/negative.txt"), conf);
+		 DistributedCache.addCacheFile(new URI("/cache/Stopwords.txt"), conf);
+		 Job twitterJob = new Job(getConf());
 		twitterJob.setJobName("Kelly Word Map");
 		twitterJob.setJarByClass(this.getClass());
 		twitterJob.setMapperClass(MapperFunc.class);

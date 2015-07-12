@@ -3,11 +3,16 @@ package com.manish;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.net.URI;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.filecache.DistributedCache;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
@@ -19,13 +24,16 @@ private Text temp = new Text();
 HashMap<String,String> pos = new HashMap<String,String>();
 HashMap<String,String> neg = new HashMap<String,String>();
 HashMap<String,String> stop = new HashMap<String,String>();
+
+Path[] cachefiles = new Path[03];
+
 private static final LongWritable one =new LongWritable (1L);
 @Override
 	protected void setup(
 			Mapper<LongWritable, Text, Text, LongWritable>.Context context)
 			throws IOException, InterruptedException {
-	
-	File fileDirs = new File("/home/manish/Work/apache-flume-1.3.1-bin/conf/positive.txt");
+	//reading files in local mode
+	/*File fileDirs = new File("/home/manish/Work/apache-flume-1.3.1-bin/conf/positive.txt");
 	
 	BufferedReader in = new BufferedReader(
 	new InputStreamReader(new FileInputStream(fileDirs), "UTF-8"));
@@ -50,7 +58,27 @@ File fileDirs2 = new File("/home/manish/Work/apache-flume-1.3.1-bin/conf/Stopwor
 	String s2;
 	while ((s2=in2.readLine()) != null) {
 	   stop.put(s2,s2);
-	}
+	}*/
+	
+	// reading files from cache
+	
+	Configuration conf = context.getConfiguration();
+	cachefiles = DistributedCache.getLocalCacheFiles(conf);
+	BufferedReader in = new BufferedReader(new FileReader(cachefiles[0].toString())); 
+	while ((in.readLine()) != null) {
+		   pos.put(in.readLine(), "");
+		}
+	
+	BufferedReader in1 = new BufferedReader(new FileReader(cachefiles[1].toString())); 
+	while ((in1.readLine()) != null) {
+		   neg.put(in1.readLine(), "");
+		}
+	BufferedReader in2 = new BufferedReader(new FileReader(cachefiles[2].toString()));
+	String s2;
+	while ((s2 = in2.readLine()) != null) {
+		stop.put(s2,s2);
+		}
+	
 	
 	}
 @Override
